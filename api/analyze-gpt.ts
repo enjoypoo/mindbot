@@ -1,5 +1,4 @@
 // pages/api/analyze-gpt.ts
-
 import { NextApiRequest, NextApiResponse } from "next";
 import { OpenAI } from "openai";
 
@@ -43,7 +42,7 @@ ${Object.entries(answers).map(([key, value]) => `- ${key}: ${value}`).join("\n")
       messages: [
         {
           role: "system",
-          content: "너는 사람의 내면을 분석해주는 감성 요약가야."
+          content: "너는 감정과 자기성찰 데이터를 분석하는 전문가야."
         },
         {
           role: "user",
@@ -53,21 +52,39 @@ ${Object.entries(answers).map(([key, value]) => `- ${key}: ${value}`).join("\n")
       temperature: 0.7
     });
 
-    const raw = chat.choices[0].message.content || "";
-    const parsed = parseGPTResponse(raw);
+    //const raw = chat.choices[0].message.content || "";
+    //const parsed = parseGPTResponse(raw);
 
-    res.status(200).json(parsed);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "GPT 분석 실패" });
+    const raw = chat.choices[0].message.content || "";
+    console.log("GPT 응답:", raw);
+
+    // GPT 응답을 단순한 파싱 (예시: summary: ..., tags: [...], analysis: [...])
+    const summaryMatch = raw.match(/summary\s*[:：]\s*(.+)/i);
+    const tagsMatch = raw.match(/tags\s*[:：]\s*(.+)/i);
+    const analysisMatches = raw.match(/analysis\s*[:：]([\s\S]*)/i);
+
+    const summary = summaryMatch ? summaryMatch[1].trim() : "";
+    const tags = tagsMatch ? tagsMatch[1].split(/[#,\s]+/).filter(Boolean) : [];
+    const analysis = analysisMatches ? analysisMatches[1].trim().split(/\n|\r/).filter(Boolean).slice(0, 5) : [];
+
+    
+    res.status(200).json({ summary, tags, analysis });
+    //res.status(200).json(parsed);
+  } catch (err: any) {
+    console.error("GPT 분석 실패:", err.message);
+    res.status(500).json({ error: "GPT 분석 중 오류 발생: " + err.message });
+    //catch (err) {
+    //console.error(err);
+    //res.status(500).json({ error: "GPT 분석 실패" });
   }
 }
 
-function parseGPTResponse(text: string) {
-  const summary = /summary[:\-\s]*[\"“]?(.*?)[\"”]?\n/i.exec(text)?.[1] || "";
-  const tags = /tags[:\-\s]*([#\w,\s]+)/i.exec(text)?.[1]?.split(/[#\s,]+/).filter(Boolean) || [];
-  const analysis = text.match(/analysis[:\-\s]*([\s\S]*?)\n\s*narrative[:\-]/i)?.[1]?.split(/\n+/).filter(Boolean) || [];
-  const narrative = /narrative[:\-\s]*([\s\S]*)/i.exec(text)?.[1]?.split(/\n+/).filter(Boolean) || [];
 
-  return { summary, tags, analysis, narrative };
-}
+//function parseGPTResponse(text: string) {
+//  const summary = /summary[:\-\s]*[\"“]?(.*?)[\"”]?\n/i.exec(text)?.[1] || "";
+//  const tags = /tags[:\-\s]*([#\w,\s]+)/i.exec(text)?.[1]?.split(/[#\s,]+/).filter(Boolean) || [];
+//  const analysis = text.match(/analysis[:\-\s]*([\s\S]*?)\n\s*narrative[:\-]/i)?.[1]?.split(/\n+/).filter(Boolean) || [];
+//  const narrative = /narrative[:\-\s]*([\s\S]*)/i.exec(text)?.[1]?.split(/\n+/).filter(Boolean) || [];
+
+//  return { summary, tags, analysis, narrative };
+//}
