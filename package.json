@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "^13.4.19",
+    "next": "^13.5.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "openai": "^4.20.0",
@@ -16,6 +16,8 @@
     "html2canvas": "^1.4.1"
   },
   "devDependencies": {
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "@types/react": "^18.0.27",
+    "@types/node": "^18.11.9"
   }
 }
