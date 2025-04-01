@@ -10,11 +10,12 @@
 //  if (req.method !== "POST") return res.status(405).end();
 
 // pages/api/analyze-gpt.ts
+import type { NextApiRequest, NextApiResponse } from "next";
 const { OpenAI } = require("openai");
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-module.exports = async function handler(req, res) {
+module.exports = async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") return res.status(405).end();
   
   const { answers } = req.body;
