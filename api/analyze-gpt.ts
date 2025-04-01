@@ -1,14 +1,22 @@
 // pages/api/analyze-gpt.ts
-import { NextApiRequest, NextApiResponse } from "next";
+//import { NextApiRequest, NextApiResponse } from "next";
 //import { OpenAI } from "openai";
+//const { OpenAI } = require("openai");
+
+//const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+//export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+//module.exports = async function handler(req, res) {
+//  if (req.method !== "POST") return res.status(405).end();
+
+// pages/api/analyze-gpt.ts
 const { OpenAI } = require("openai");
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-//export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).end();
-
+  
   const { answers } = req.body;
 
   const prompt = `
