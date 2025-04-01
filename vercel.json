@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/analyze-gpt.ts": {
+      "maxDuration": 20
+    }
+  }
+}
