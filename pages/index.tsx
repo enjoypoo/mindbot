@@ -1,7 +1,7 @@
 // pages/index.tsx: 시작 안내 & 결제 유도 페이지
 
 import React from "react";
-import { Button } from "@/components/ui/button";
+//import { Button } from "@/components/ui/button";
 import { useRouter } from "next/router";
 import Footer from "@/components/Footer";
 
