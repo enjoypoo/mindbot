@@ -10,12 +10,12 @@
 //  if (req.method !== "POST") return res.status(405).end();
 
 // pages/api/analyze-gpt.ts
-import type { NextApiRequest, NextApiResponse } from "next";
-const { OpenAI } = require("openai");
+import { NextApiRequest, NextApiResponse } from "next";
+import { OpenAI } from "openai";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-module.exports = async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") return res.status(405).end();
   
   const { answers } = req.body;
@@ -44,32 +44,21 @@ module.exports = async function handler(req: NextApiRequest, res: NextApiRespons
 가능하면 공감되고 따뜻한 어조로 작성해주세요.
 
 질문 및 응답:
-${Object.entries(answers).map(([key, value]) => `- ${key}: ${value}`).join("\n")}
-`;
+${Object.entries(answers).map(([key, value]) => `- ${key}: ${value}`).join("\n")}`;
 
   try {
     const chat = await openai.chat.completions.create({
       model: "gpt-4-turbo",
       messages: [
-        {
-          role: "system",
-          content: "너는 감정과 자기성찰 데이터를 분석하는 전문가야."
-        },
-        {
-          role: "user",
-          content: prompt
-        }
+        { role: "system", content: "너는 감정과 자기성찰 데이터를 분석하는 전문가야." },
+        { role: "user", content: prompt }
       ],
-      temperature: 0.7
+      temperature: 0.7,
     });
-
-    //const raw = chat.choices[0].message.content || "";
-    //const parsed = parseGPTResponse(raw);
 
     const raw = chat.choices[0].message.content || "";
     console.log("GPT 응답:", raw);
 
-    // GPT 응답을 단순한 파싱 (예시: summary: ..., tags: [...], analysis: [...])
     const summaryMatch = raw.match(/summary\s*[:：]\s*(.+)/i);
     const tagsMatch = raw.match(/tags\s*[:：]\s*(.+)/i);
     const analysisMatches = raw.match(/analysis\s*[:：]([\s\S]*)/i);
@@ -78,24 +67,13 @@ ${Object.entries(answers).map(([key, value]) => `- ${key}: ${value}`).join("\n")
     const tags = tagsMatch ? tagsMatch[1].split(/[#,\s]+/).filter(Boolean) : [];
     const analysis = analysisMatches ? analysisMatches[1].trim().split(/\n|\r/).filter(Boolean).slice(0, 5) : [];
 
-    
     res.status(200).json({ summary, tags, analysis });
-    //res.status(200).json(parsed);
   } catch (err: any) {
     console.error("GPT 분석 실패:", err.message);
     res.status(500).json({ error: "GPT 분석 중 오류 발생: " + err.message });
-    //catch (err) {
-    //console.error(err);
-    //res.status(500).json({ error: "GPT 분석 실패" });
   }
 }
 
-
-//function parseGPTResponse(text: string) {
-//  const summary = /summary[:\-\s]*[\"“]?(.*?)[\"”]?\n/i.exec(text)?.[1] || "";
-//  const tags = /tags[:\-\s]*([#\w,\s]+)/i.exec(text)?.[1]?.split(/[#\s,]+/).filter(Boolean) || [];
-//  const analysis = text.match(/analysis[:\-\s]*([\s\S]*?)\n\s*narrative[:\-]/i)?.[1]?.split(/\n+/).filter(Boolean) || [];
-//  const narrative = /narrative[:\-\s]*([\s\S]*)/i.exec(text)?.[1]?.split(/\n+/).filter(Boolean) || [];
 
 //  return { summary, tags, analysis, narrative };
 //}
