@@ -53,7 +53,7 @@ ${Object.entries(answers).map(([key, value]) => `- ${key}: ${value}`).join("\n")
       temperature: 0.7
     });
 
-    const raw = chat.choices[0].message.content;
+    const raw = chat.choices[0].message.content || "";
     const parsed = parseGPTResponse(raw);
 
     res.status(200).json(parsed);
