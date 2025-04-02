@@ -56,11 +56,18 @@ export default function QuestionsPage() {
     const delay = Math.random() * 1500;
     setTimeout(async () => {
       try {
+        // 질문-답변 쌍 만들기
+        const qaPairs = questions.map((q) => ({
+          question: q.text,
+          answer: answers[q.type + q.id] || ""
+        }));
+
         const res = await fetch("/api/analyze-gpt", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ answers })
+          body: JSON.stringify({ qa: qaPairs })
         });
+
         if (res.status === 429) {
           setBlocked(true);
           setLoading(false);
