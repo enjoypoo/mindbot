@@ -67,8 +67,17 @@ export default function QuestionsPage() {
           return;
         }
         if (!res.ok) throw new Error("분석 요청 실패");
-        const data = await res.json();
+
+        const text = await res.text();
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (jsonErr) {
+          throw new Error("분석 응답이 올바르지 않아요. 다시 시도해주세요.");
+        }
+
         if (!data.summary) throw new Error("분석 응답 오류");
+
         localStorage.setItem("summary", data.summary);
         localStorage.setItem("tags", JSON.stringify(data.tags));
         localStorage.setItem("analysis", JSON.stringify(data.analysis));
