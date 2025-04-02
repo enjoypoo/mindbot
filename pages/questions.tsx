@@ -1,12 +1,11 @@
 // pages/questions.tsx
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 
 export default function QuestionsPage() {
   const router = useRouter();
   const { email } = router.query;
-
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -48,7 +47,6 @@ export default function QuestionsPage() {
 
   const handleSubmit = async () => {
     if (!email) return;
-
     setLoading(true);
     setError("");
 
@@ -70,32 +68,40 @@ export default function QuestionsPage() {
   };
 
   return (
-    <div className="bg-gradient-to-b from-white to-purple-50 min-h-screen py-16 px-4">
-      <div className="max-w-3xl mx-auto space-y-6">
-        <h1 className="text-3xl font-bold text-purple-800 text-center mb-8">📝 나를 마주하는 28가지 질문</h1>
+    <div className="bg-gradient-to-b from-purple-50 to-white min-h-screen py-16 px-4">
+      <div className="max-w-3xl mx-auto">
+        <h1 className="text-3xl font-bold text-purple-800 text-center mb-8">
+          📝 나를 마주하는 28가지 질문
+        </h1>
+        <p className="text-center text-gray-600 mb-12">
+          한 질문씩, 천천히 적어보세요. 당신의 이야기를 마인드봇이 기다리고 있어요.
+        </p>
 
-        {questions.map((q, idx) => (
-          <div key={idx} className="bg-white rounded-xl shadow p-4">
-            <p className="font-semibold mb-2">{idx + 1}. {q}</p>
-            <textarea
-              rows={2}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2"
-              placeholder="당신의 생각을 자유롭게 적어보세요"
-              onBlur={(e) => handleChange(idx + 1, e.target.value)}
-            />
-          </div>
-        ))}
+        <div className="space-y-6">
+          {questions.map((q, idx) => (
+            <div key={idx} className="bg-white rounded-xl shadow-md p-5">
+              <p className="font-semibold text-gray-800 mb-2">
+                {idx + 1}. {q}
+              </p>
+              <textarea
+                rows={2}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-purple-400"
+                placeholder="당신의 생각을 자유롭게 적어보세요"
+                onBlur={(e) => handleChange(idx + 1, e.target.value)}
+              />
+            </div>
+          ))}
+        </div>
 
-        <div className="text-center mt-10">
+        <div className="text-center mt-12 space-y-4">
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="bg-purple-700 hover:bg-purple-800 text-white px-10 py-5 rounded-full text-lg"
+            className="bg-purple-700 hover:bg-purple-800 px-10 py-5 text-lg text-white rounded-full"
           >
-            {loading ? "저장 중..." : "마인드봇에게 분석 요청하기 🤖"}
+            마인드봇에게 분석 요청하기 🤖
           </button>
-
-          {error && <p className="text-red-500 mt-3">{error}</p>}
+          {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
         </div>
       </div>
     </div>
