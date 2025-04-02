@@ -53,8 +53,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       {
         role: "user",
         content: answers
-          .map((a: Answer) => `Q${a.questionId}: ${a.answer}`) // ✅ 타입 명시로 에러 해결
-          .join("\n"),
+        .map((a: { questionId: number; answer: string }) => `Q${a.questionId}: ${a.answer}`)
+        .join("\n"),
       },
     ];
 
