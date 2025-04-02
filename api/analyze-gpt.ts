@@ -21,8 +21,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const { answers } = req.body;
 
   const prompt = `
-당신은 인간의 감정, 가치관, 정체성, 성장 경험 등을 분석하는 전문가입니다.
-
 다음은 한 개인이 자신의 내면에 대해 답한 28개의 질문과 그에 대한 응답입니다.
 이 정보를 바탕으로 다음을 수행해주세요:
 
@@ -48,9 +46,9 @@ ${Object.entries(answers).map(([key, value]) => `- ${key}: ${value}`).join("\n")
 
   try {
     const chat = await openai.chat.completions.create({
-      model: "gpt-4-turbo",
+      model: "gpt-3.5-turbo",
       messages: [
-        { role: "system", content: "너는 감정과 자기성찰 데이터를 분석하는 전문가야." },
+        { role: "system", content: "당신은 인간의 감정, 가치관, 정체성, 성장 경험 등을 분석하는 전문가입니다." },
         { role: "user", content: prompt }
       ],
       temperature: 0.7,
