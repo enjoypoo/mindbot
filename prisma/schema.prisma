@@ -1,0 +1,45 @@
+// schema.prisma — Supabase 기반 마인드봇 DB 설계 (보관기간 7일 자동 삭제 기준)
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  paid      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  answers   Answer[]
+  results   Result[]
+}
+
+model Answer {
+  id         String   @id @default(cuid())
+  questionId Int
+  question   String
+  answer     String
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+}
+
+model Result {
+  id         String   @id @default(cuid())
+  summary    String
+  tags       String[]
+  analysis   String[]
+  narrative  String
+  delivered  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+}
+
+// 💡 자동 삭제 로직은 API 또는 스케줄러에서 createdAt 기준으로 처리합니다.
+// 예: createdAt < NOW() - INTERVAL '7 days' → 삭제
