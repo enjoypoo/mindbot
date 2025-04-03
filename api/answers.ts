@@ -2,6 +2,7 @@
 
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/lib/prisma";
+import { AnswerCreateManyInput } from "@prisma/client";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") return res.status(405).end();
@@ -18,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const answerEntries = Object.entries(answers).map(([key, value]) => ({
       questionId: parseInt(key),
       question: "", // 질문 텍스트는 필요시 포함
-      answer: value,
+      answer: String(a.answer),
       userId: user.id,
     }));
 
