@@ -11,5 +11,10 @@
     "api/results.ts": {
       "includeFiles": "node_modules/@prisma/client/**"
     }
+  },
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "nodejs18.x"
+    }
   }
 }
