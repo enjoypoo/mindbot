@@ -15,11 +15,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (!user) return res.status(404).json({ error: "사용자 없음" });
 
-    const answerEntries = Object.entries(answers).map(([key, value]) => ({
-      questionId: parseInt(key),
-      question: "", // 질문 텍스트는 필요시 포함
-      answer: String(a.answer),
-      userId: user.id,
+    
+const answerEntries = answers.map((a: any) => ({
+  questionId: a.questionId,
+  question: a.question,
+  answer: String(a.answer),
+  userId: userId,
+    //const answerEntries = Object.entries(answers).map(([key, value]) => ({
+      //questionId: parseInt(key),
+      //question: "", // 질문 텍스트는 필요시 포함
+      //answer: String(a.answer),
+      //userId: user.id,
     }));
 
     await prisma.answer.createMany({
