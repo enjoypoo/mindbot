@@ -53,7 +53,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       {
         role: "user",
         content: answers
-        const messages: OpenAI.ChatCompletionMessageParam[] = 
+        .map((a) => `Q${a.questionId}. ${a.question}\nA. ${a.answer}`)
         .join("\n"),
       },
     ];
