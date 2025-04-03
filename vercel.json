@@ -1,7 +1,12 @@
 {
+  "build": {
+    "env": {
+      "DATABASE_URL": "@your-database-url"
+    }
+  },
   "functions": {
-    "api/analyze-gpt.ts": {
-      "maxDuration": 20
+    "api/**/*.ts": {
+      "includeFiles": ["node_modules/@prisma/client/**", "prisma/**"]
     }
   }
 }
