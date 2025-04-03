@@ -14,8 +14,14 @@ export default function Home() {
     setLoading(true);
     setError("");
 
+    if (!name || !email) {
+    setError("이름과 이메일을 모두 입력해주세요.");
+    setLoading(false);
+    return;
+    }
+   
     try {
-      const res = await fetch("/api/users", {
+      const res = await fetch("/api/register-user", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email }),
