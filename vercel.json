@@ -1,20 +1,16 @@
 {
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "nodejs18.x",
+      "includeFiles": [
+        "prisma/**",
+        "node_modules/@prisma/client/**"
+      ]
+    }
+  },
   "build": {
     "env": {
       "DATABASE_URL": "postgresql://postgres.gsqxohqnnsizdbdqxxsv:[YOUR-PASSWORD]@aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres"
-    }
-  },
-    "functions": {
-    "api/register-user.ts": {
-      "includeFiles": "prisma/**"
-    },
-    "api/results.ts": {
-      "includeFiles": "node_modules/@prisma/client/**"
-    }
-  },
-  "functions": {
-    "api/**/*.ts": {
-      "runtime": "nodejs18.x"
     }
   }
 }
