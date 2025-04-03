@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     // GPT 메시지 구성
-    const messages = [
+    const messages: OpenAI.ChatCompletionMessageParam[] = [
       {
         role: "system",
         content: `너는 감정과 언어 분석 전문가야. 아래 사용자 답변을 기반으로:
@@ -53,14 +53,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       {
         role: "user",
         content: answers
-        .map((a: { questionId: number; answer: string }) => `Q${a.questionId}: ${a.answer}`)
+        const messages: OpenAI.ChatCompletionMessageParam[] = 
         .join("\n"),
       },
     ];
 
     // GPT 호출
     const chat = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-3.5",
       messages,
       temperature: 0.7,
     });
