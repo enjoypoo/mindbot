@@ -1,8 +1,12 @@
 {
   "functions": {
-    "api/**/*.ts": {
+    "api/register-user.ts": {
       "runtime": "nodejs18.x",
-      "includeFiles": ["prisma/schema.prisma"]
+      "includeFiles": "prisma/schema.prisma"
+    },
+    "api/send-email.ts": {
+      "runtime": "nodejs18.x",
+      "includeFiles": "node_modules/@prisma/client"
     }
   },
   "build": {
