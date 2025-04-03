@@ -12,4 +12,5 @@
       "includeFiles": "node_modules/@prisma/client/**"
     }
   }
+  
 }
