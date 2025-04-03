@@ -6,10 +6,10 @@
   },
   "functions": {
     "api/**/*.ts": {
-      "includeFiles": "node_modules/@prisma/client/**"
-    },
-    "api/**/!(*.test).ts": {
       "includeFiles": "prisma/**"
+    },
+    "api/**/*.ts": {
+      "includeFiles": "node_modules/@prisma/client/**"
     }
   }
 }
