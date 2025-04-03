@@ -1,7 +1,7 @@
 {
   "build": {
     "env": {
-      "DATABASE_URL": "@DATABASE_URL"
+      "DATABASE_URL": "postgresql://postgres.gsqxohqnnsizdbdqxxsv:[YOUR-PASSWORD]@aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres"
     }
   },
     "functions": {
