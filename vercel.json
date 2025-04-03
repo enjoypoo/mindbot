@@ -2,7 +2,7 @@
   "functions": {
     "api/**/*.ts": {
       "runtime": "vercel/node@18",
-      "includeFiles": "prisma/**"
+      "includeFiles": "prisma/schema.prisma"
     }
   },
   "build": {
