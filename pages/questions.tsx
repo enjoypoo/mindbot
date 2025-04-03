@@ -59,7 +59,8 @@ export default function QuestionsPage() {
 
       if (!res.ok) throw new Error("답변 저장 실패");
 
-      router.push(`/result?email=${encodeURIComponent(email)}`);
+      const safeEmail = Array.isArray(email) ? email[0] : email;
+      router.push(`/result?email=${encodeURIComponent(safeEmail)}`);
     } catch (err) {
       setError("⚠️ 답변 저장 중 문제가 발생했어요.");
     } finally {
