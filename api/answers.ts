@@ -15,6 +15,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (!user) return res.status(404).json({ error: "사용자 없음" });
 
+let userId: string;
+const user = await prisma.user.upsert({
+  where: { email },
+  update: { name },
+  create: { email, name },
+});
+userId = user.id;
     
 const answerEntries = answers.map((a: any) => ({
   questionId: a.questionId,
