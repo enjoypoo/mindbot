@@ -1,7 +1,7 @@
 // pages/api/results.ts
 
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma/client";
 import OpenAI from "openai";
 import type { Answer } from "@prisma/client"; // ✅ 추가
 
