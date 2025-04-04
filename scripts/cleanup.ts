@@ -1,6 +1,6 @@
 // scripts/cleanup.ts
 
-import { prisma } from "../lib/prisma";
+import { prisma } from "../lib/prisma/client";
 
 async function cleanupOldData() {
   const cutoff = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000); // 7일 전
