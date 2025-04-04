@@ -11,10 +11,10 @@
     },
     "api/send-email.ts": {
       "includeFiles": "lib/prisma.ts"
-    }
+    },
    "api/send-email.ts:1": {
       "includeFiles": "node_modules/@prisma/client/**"
-    }
+    },
    "api/send-email.ts:2": {
       "includeFiles": "prisma/schema.prisma"
     }
