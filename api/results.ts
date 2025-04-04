@@ -53,7 +53,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       {
         role: "user",
         content: answers
-        .map((a) => `Q${a.questionId}. ${a.question}\nA. ${a.answer}`)
+        .map((a: Answer) => `Q${a.questionId}. ${a.question}\nA. ${a.answer}`)
         .join("\n"),
       },
     ];
