@@ -24,9 +24,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const html = `
       <h2>🧠 마인드봇 분석 결과</h2>
       <p><strong>당신을 표현한 한 문장:</strong><br/> ${result.summary}</p>
-      <p><strong>태그:</strong><br/> ${result.tags.map((t) => `#${t}`).join(" ")}</p>
+      <p><strong>태그:</strong><br/> ${result.tags.map((t: string) => `#${t}`).join(" ")}</p>
       <p><strong>분석 요약:</strong></p>
-      <ul>${result.analysis.map((a) => `<li>${a}</li>`).join("")}</ul>
+      <ul>${result.analysis.map((a: string) => `<li>${a}</li>`).join("")}</ul>
       <p><strong>삶의 서사 요약:</strong><br/> ${result.narrative}</p>
     `;
 
