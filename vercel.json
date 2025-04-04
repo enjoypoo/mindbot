@@ -1,10 +1,18 @@
 {
-"functions": {
+  "functions": {
     "api/register-user.ts": {
-      "includeFiles": "lib/prisma.ts"
+      "includeFiles": [
+        "lib/prisma.ts",
+        "node_modules/@prisma/client/**",
+        "prisma/schema.prisma"
+      ]
     },
     "api/send-email.ts": {
-      "includeFiles": "lib/prisma.ts"
+      "includeFiles": [
+        "lib/prisma.ts",
+        "node_modules/@prisma/client/**",
+        "prisma/schema.prisma"
+      ]
     }
   },
   "build": {
