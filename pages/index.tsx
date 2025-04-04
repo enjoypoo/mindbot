@@ -41,7 +41,7 @@ export default function Home() {
         <meta name="description" content="28개의 깊이 있는 질문을 통해 당신을 함축적으로 표현해주는 단 하나의 문장을 찾아드립니다." />
       </Head>
       
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+      <div className="min-h-screen bg-purple-100" style={{background: 'linear-gradient(to bottom, #f5f3ff, #ede9fe, #ddd6fe)'}}>
         <div className="container mx-auto px-4 py-12 flex flex-col md:flex-row items-center justify-between">
           {/* 왼쪽 섹션: 설명 텍스트 */}
           <div className="w-full md:w-1/2 mb-8 md:mb-0 md:pr-8">
